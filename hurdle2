@@ -31,3 +31,5 @@ right(city,1): extract from right 1 letter
 
 MYSQL consider LOWER and UPPER case as one
 ORACLE consider LOWER and UPPER case separately , thus need to have LOWER() function
+
+LOWER(substr(city,0,1)) in Oracle = left(city,1) in MYSQL
