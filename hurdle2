@@ -27,3 +27,7 @@ and right(city, 1) in ('a','e','i','o','u')
 
 left(city,1): extract from left 1 letter
 right(city,1): extract from right 1 letter
+
+
+MYSQL consider LOWER and UPPER case as one
+ORACLE consider LOWER and UPPER case separately , thus need to have LOWER() function
