@@ -1,0 +1,29 @@
+select city (excluding duplicates) in which first and last letter of city is vowels
+
+>>>>>>>>> ORACLE SQL:
+SELECT city
+FROM station
+WHERE (
+   LOWER(city) LIKE 'a%' 
+   OR LOWER(city) LIKE 'e%' 
+   OR LOWER(city) LIKE 'i%' 
+   OR LOWER(city) LIKE 'o%' 
+   OR LOWER(city) LIKE 'u%'
+)
+AND (
+   LOWER(city) LIKE '%a' 
+   OR LOWER(city) like '%e' 
+   OR LOWER(city) LIKE '%i' 
+   OR LOWER(city) LIKE '%o' 
+   OR LOWER(city) LIKE '%u'
+);
+
+LOWER(city): lower case of city
+
+>>>>>>>>> MYSQL:
+select distinct city from station 
+where left(city,1) in ('a','e','i','o','u') 
+and right(city, 1) in ('a','e','i','o','u')
+
+left(city,1): extract from left 1 letter
+right(city,1): extract from right 1 letter
