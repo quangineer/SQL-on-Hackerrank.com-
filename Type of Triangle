@@ -1,0 +1,15 @@
+# Write a SQL query identifying the type of each record in the TRIANGLES table using its three side lengths to output one of the following statements:
+# Equilateral ; Isosceles ; Scalene ; Not A Triangle
+# The TRIANGLES table as follows:
+Column    Type
+  A      Integer
+  B      Integer
+  C      Integer
+# Each row in the table denotes the lengths of each of a triangle's three sides.
+
+SELECT CASE WHEN A + B > C AND B + C > A AND A + C > B
+THEN CASE WHEN A = B AND B = C THEN 'EQUILATERAL'
+WHEN A = B OR B = C OR C = A THEN 'ISOSCELES'
+WHEN A != B OR B != C OR A != C THEN 'SCALENE'
+END ELSE 'NOT A TRIANGLE' END 
+FROM TRIANGLES;
