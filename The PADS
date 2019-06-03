@@ -1,0 +1,40 @@
+# pick column Name and Occupation:
+SELECT
+    Name ||                  # || to avoid space between 2 columns 
+    CASE Occupation                  # Start if statement
+    WHEN 'Professor' THEN '(P)'      # Alias
+    WHEN 'Actor' THEN '(A)'          # Alias
+    WHEN 'Doctor' THEN '(D)'         # Alias
+    WHEN 'Singer' THEN '(S)'         # Alias
+    END                              # To end a CASE
+FROM OCCUPATIONS            # name of the table
+ORDER BY Name, Occupation;
+
+SELECT ('There are a total of ' || count(*) || '' ||
+    CASE Occupation                  # Start if statement
+    WHEN 'Professor' THEN 'professors'        # Alias
+    WHEN 'Actor' THEN 'actors'                # Alias
+    WHEN 'Doctor' THEN 'doctors'              # Alias
+    WHEN 'Singer' THEN 'singers'              # Alias
+    END                                       # To end a CASE
+    || '.'                           # Put the dot just right after the last word of a sentence/no space.
+FROM OCCUPATIONS
+GROUP BY Occupation      # This link to the "count(*)" above
+ORDER BY count(*), Occupation;
+
+
+# Sample output
+Ashley(P)
+Christensen(D)
+Lynn(S)
+Penelope(A)
+Huang(D)
+Quake(D)
+Jenna(P)
+Nerop(S)
+Teresa(P)
+Vincent(A)
+There are a total of 2 actors.
+There are a total of 2 singers.
+There are a total of 3 doctors.
+There are a total of 3 professors.
