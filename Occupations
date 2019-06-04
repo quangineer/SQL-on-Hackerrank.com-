@@ -1,0 +1,35 @@
+First of all, in order to solve this challenge, we need to know some more SQL functions as follows:
+# Number 1: ROW_NUMBER() Function with and without Partition By clause:
+            This will help create a new column in which the values is divided into partitions in accordance to given conditions.
+            https://www.c-sharpcorner.com/blogs/rownumber-function-with-partition-by-clause-in-sql-server1  
+
+# Number 2: PIVOT Function:
+            This will help rotate the table in which rows will become columns. 
+            Note: Pivot always goes with Alias at the end of the clause in order to give the new table a name.
+            Note: Formula (PIVOT (an aggregate (column1) FOR column2 in (new_column1, new_column2)) as new_table_name
+            https://blogs.msdn.microsoft.com/spike/2009/03/03/pivot-tables-in-sql-server-a-simple-sample/  
+## www.hackerrank.com/challenges/occupations/problem
+
+
+select min(Doctor), min(Professor),min(Singer),  min(Actor)
+from(
+select ROW_NUMBER() OVER(PARTITION By Doctor,Actor,Singer,Professor order by name asc) AS Rownum, 
+case when Doctor=1 then name else Null end as Doctor,
+case when Actor=1 then name else Null end as Actor,
+case when Singer=1 then name else Null end as Singer,
+case when Professor=1 then name else Null end as Professor
+from occupations
+pivot
+( count(occupation)
+for occupation in(Doctor, Actor, Singer, Professor)) as p
+
+) temp
+
+group by Rownum  ;
+
+## It starts with row 22-24 : pivot function kicks in to shape a table with 4 columns (Doctor, Actor, Singer, Professor). 
+## Then row 15-21: ROW_NUMBER() OVER with PARTITION will make a new column next to the 4s we just created. At the same time,
+## it creates value for each new row.
+## Row 28 kicks in to group all the same number that ROW_NUMBER() just create
+## Row 14 kicks in to pick the value in each group (The idea here is each group contain only a valid name and 3 NULLs so it 
+## does not matter whether you call it max or min).
